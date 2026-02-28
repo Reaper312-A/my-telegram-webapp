@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой Web App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: var(--tg-theme-hint-color, #3390ec);
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: var(--tg-theme-button-color, #3390ec);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>👋 Привет, <span id="username">Гость</span>!</h1>
+    <p>Это твой первый Web App в Telegram</p>
+    <button class="button" onclick="sendData()">✅ Отправить данные боту</button>
+    <button class="button" onclick="closeApp()">❌ Закрыть</button>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        // Получаем имя пользователя
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            document.getElementById('username').innerText = tg.initDataUnsafe.user.first_name;
+        }
+
+        function sendData() {
+            tg.sendData("Пользователь нажал кнопку!");
+            tg.close();
+        }
+
+        function closeApp() {
+            tg.close();
+        }
+    </script>
+</body>
+</html>
